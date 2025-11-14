@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: producer-config
+  namespace: flight-delay-system
+data:
+  KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
+  STREAM_DURATION_SECONDS: "86400"
+  WEATHER_SAMPLE_SIZE: "10"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-producer
+  namespace: flight-delay-system
+  labels:
+    app: data-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-producer
+  template:
+    metadata:
+      labels:
+        app: data-producer
+    spec:
+      containers:
+        - name: producer
+          image: sakshi2730/flight-delay-producer:latest
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: producer-config
+                  key: KAFKA_BOOTSTRAP_SERVERS
+            - name: STREAM_DURATION_SECONDS
+              valueFrom:
+                configMapKeyRef:
+                  name: producer-config
+                  key: STREAM_DURATION_SECONDS
+            - name: WEATHER_SAMPLE_SIZE
+              valueFrom:
+                configMapKeyRef:
+                  name: producer-config
+                  key: WEATHER_SAMPLE_SIZE
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - "ps aux | grep python | grep -v grep"
+            initialDelaySeconds: 30
+            periodSeconds: 30
+      restartPolicy: Always
