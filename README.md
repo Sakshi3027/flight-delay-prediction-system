@@ -654,7 +654,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **GitHub**: [@Sakshi3027](https://github.com/Sakshi3027)  
 
 
-**Project Link**: [https://github.com/yourusername/flight-delay-prediction](https://github.com/yourusername/flight-delay-prediction)
+**Project Link**: [https://github.com/Sakshi3027/flight-delay-prediction](https://github.com/Sakshi3027/flight-delay-prediction)
 
 ---
 
