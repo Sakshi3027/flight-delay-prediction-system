@@ -8,7 +8,7 @@
 
 A production-ready real-time streaming analytics system that predicts flight delays by processing live flight data and weather conditions using Apache Kafka, Spark Streaming, and Machine Learning.
 
-![Dashboard Screenshot](docs/screenshots/dashboard-main.png)
+[Dashboard Overview](docs/screenshots/dashboard-overview.png)
 *Real-time flight delay prediction dashboard showing live risk assessments*
 
 ---
